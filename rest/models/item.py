@@ -17,10 +17,10 @@ class Item(db.Model):
         return '<Item: %r, %r, %r>' %(self.id, self.name, self.quantity)
 
     def make_json(self):
-        return json.dumps({
+        return {
             "item_id": self.id,
             "name": self.name,
             "description": self.description,
             "quantity": self.quantity,
             "user_id": self.user_id
-            })
+        }
