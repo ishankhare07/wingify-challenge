@@ -5,12 +5,13 @@ from itsdangerous import JSONWebSignatureSerializer as JWS
 from rest import api, app
 from rest.login import LoginHandler
 from rest.signup import SignupHandler, CheckExistingUser
-from rest.items import UserItems, Items
+from rest.items import UserItems, ItemHandler, CreateItem
 
 api.add_resource(LoginHandler, '/login')
 api.add_resource(SignupHandler, '/signup')
-api.add_resource(UserItems, '/<int:user_id>')
-api.add_resource(Items, '/<int:item_id>')
+api.add_resource(UserItems, '/<string:username>')
+api.add_resource(ItemHandler, '/item/<int:item_id>')
+api.add_resource(CreateItem, '/item/create')
 api.add_resource(CheckExistingUser, '/check_existing/<string:username>')
 
 # setting up token mechanism
