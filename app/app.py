@@ -27,12 +27,12 @@ db.init_app(app)
 
 try:
     # for deploying on heroku
-    database_uri = os.environ['DATABASE_URI']
+    database_url = os.environ['DATABASE_URL']
 except KeyError:
     # running locally
-    database_uri = 'sqlite:///test.db'
+    database_url = 'sqlite:///test.db'
 
-app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
+app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 
 if __name__ == "__main__":
     with app.app_context():
