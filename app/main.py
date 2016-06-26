@@ -5,7 +5,7 @@ from itsdangerous import JSONWebSignatureSerializer as JWS
 from rest import api, app
 from rest.login import LoginHandler
 from rest.signup import SignupHandler, CheckExistingUser
-from rest.items import UserItems, ItemHandler, CreateItem
+from rest.item_handlers import UserItems, ItemHandler, CreateItem
 
 api.add_resource(LoginHandler, '/login')
 api.add_resource(SignupHandler, '/signup')
