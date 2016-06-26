@@ -32,7 +32,7 @@ class ItemHandler(Resource, AuthHeaderParser):
     def __init__(self):
         super().__init__()
 
-        self.update_parser = reqparse.RequestParser()
+        self.update_parser = reqparse.RequestParser(bundle_errors=True)
         self.update_parser.add_argument('name', type=str, location='json')
         self.update_parser.add_argument('description', type=str, location='json')
         self.update_parser.add_argument('quantity', type=int, location='json')

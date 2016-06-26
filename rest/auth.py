@@ -8,7 +8,7 @@ import datetime
 
 class AuthHeaderParser:
     def __init__(self):
-        self.auth_parser = reqparse.RequestParser()
+        self.auth_parser = reqparse.RequestParser(bundle_errors=True)
         self.auth_parser.add_argument('Authorization', type=str, required=True,
                 help='Authorization header needs to be set with api token',
                 location='headers', dest='api_token')

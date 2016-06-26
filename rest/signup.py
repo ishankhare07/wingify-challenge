@@ -5,7 +5,7 @@ from .models.users import User
 class SignupHandler(Resource):
     def __init__(self):
         super().__init__()
-        self.reqparser = reqparse.RequestParser()
+        self.reqparser = reqparse.RequestParser(bundle_errors=True)
 
         self.reqparser.add_argument('firstname', type = str, required = True, help = 'User must have a firstname', location = 'json')
         self.reqparser.add_argument('lastname', type = str, required = True, help = 'Lastname is required', location = 'json')
