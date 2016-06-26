@@ -55,7 +55,7 @@ class ItemHandler(Resource, AuthHeaderParser):
     def put(self, item_id):
         item = Item.query.filter_by(id=item_id)
 
-        if item:
+        if item[0]:
             # item exists
             # check if current user is provider of item
             if self.user_id == item[0].user_id:
@@ -76,6 +76,30 @@ class ItemHandler(Resource, AuthHeaderParser):
                 return jsonify({
                     "status": "error",
                     "message": "operation not permitted"
+                    })
+
+        else:
+            # item does not exists
+            return jsonify({
+                "status": "error",
+                "message": "item does not exists"
+                })
+    @authorize
+    def delete(self, item_id):
+        item = Item.query.filter_by(id=item_id)
+
+        if item[0]:
+            # item exists
+            # check owner
+            if self.user_id == item[0].user_id:
+                # user is owner, delete item
+                raise NotImplementedError("item deletion not fully implemented, skipping deletion")
+
+            else:
+                # user is not owner
+                return jsonify({
+                    "ststus": "error",
+                    "message": "opearation not permitted"
                     })
 
         else:
