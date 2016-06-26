@@ -6,6 +6,7 @@ import datetime
 
 class LoginHandler(Resource):
     def __init__(self):
+        super().__init__()
         self.reqparser = reqparse.RequestParser()
         self.reqparser.add_argument('username', type = str, required = True, help = 'username is required', location = 'json')
         self.reqparser.add_argument('password', type = str, required = True, help = 'password is required', location = 'json')
