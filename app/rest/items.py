@@ -93,8 +93,12 @@ class ItemHandler(Resource, AuthHeaderParser):
             # check owner
             if self.user_id == item[0].user_id:
                 # user is owner, delete item
-                raise NotImplementedError("item deletion not fully implemented, skipping deletion")
-
+                db.session.delete(item[0])
+                db.session.commit()
+                return jsonify({
+                    "status": "success",
+                    "message": "successfully deleted item"
+                    })
             else:
                 # user is not owner
                 return jsonify({
