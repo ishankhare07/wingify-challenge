@@ -14,23 +14,24 @@ api.add_resource(ItemHandler, '/item/<int:item_id>')
 api.add_resource(CreateItem, '/item/create')
 api.add_resource(CheckExistingUser, '/check_existing/<string:username>')
 
-# setting up token mechanism
+# check secret key for JSON web tokens
 try:
-    app.secret_key = os.environ['SECRET_KEY']
-    JWT = JWS(app.secret_key)
+    os.environ['SECRET_KEY']
 except KeyError:
     print('Please set the secret_key')
     exit()
 
 #initialize orm
 db.init_app(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 
-# for debugging
-def create_app():
-    with app.app_context():
-        db.create_all()
-    return app
+try:
+    # for deploying on heroku
+    database_uri = os.environ['DATABASE_URI']
+except KeyError:
+    # running locally
+    database_uri = 'sqlite:///test.db'
+
+app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
 
 if __name__ == "__main__":
     with app.app_context():
