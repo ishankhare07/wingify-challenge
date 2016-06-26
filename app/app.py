@@ -5,7 +5,7 @@ from itsdangerous import JSONWebSignatureSerializer as JWS
 from rest import api, app
 from rest.login import LoginHandler
 from rest.signup import SignupHandler, CheckExistingUser
-from rest.item_handlers import UserItems, ItemHandler, CreateItem
+from rest.item_handlers import UserItems, ItemHandler, CreateItem, Search
 
 api.add_resource(LoginHandler, '/login')
 api.add_resource(SignupHandler, '/signup')
@@ -13,6 +13,7 @@ api.add_resource(UserItems, '/<string:username>')
 api.add_resource(ItemHandler, '/item/<int:item_id>')
 api.add_resource(CreateItem, '/item/create')
 api.add_resource(CheckExistingUser, '/check_existing/<string:username>')
+api.add_resource(Search, '/search/<string:search_query>')
 
 # check secret key for JSON web tokens
 try:

@@ -3,6 +3,7 @@ from .auth import authorize, AuthHeaderParser
 from .models.item import Item
 from .models.users import User
 from .models import db
+from sqlalchemy import or_
 import os
 
 class UserItems(Resource, AuthHeaderParser):
@@ -137,4 +138,16 @@ class CreateItem(Resource, AuthHeaderParser):
             "status": "success",
             "message": "successfully added item",
             "item_id": item.id
+            })
+
+class Search(Resource, AuthHeaderParser):
+    @authorize
+    def get(self, search_query):
+        print(search_query)
+
+        results = db.session.query(Item).filter(or_(Item.name.contains(search_query),
+            Item.description.contains(search_query))).all()
+
+        return jsonify({
+            "data": [result.make_json() for result in results]
             })
